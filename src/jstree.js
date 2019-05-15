@@ -5899,7 +5899,7 @@
           return true;
         }
       );
-      this.trigger("edit_start", { item: obj, $editInput: h2 });
+      this.trigger("edit_start", { item: this.get_node(obj), $editInput: h2 });
     },
 
     /**

@@ -202,8 +202,11 @@
             console.log("edit_start", data);
             data.$editInput.autocomplete({
               source: ["Attila", "Carlo", "Danilo"],
-              select: function(evt) {
+              select: function(evt, ui) {
                 console.log("Selected autocomplete item", evt);
+                data.item.data.category = 10;
+                data.$editInput.val(ui.item.label);
+                data.$editInput.blur();
               }
             });
           }, this)
