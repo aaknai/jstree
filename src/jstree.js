@@ -5888,9 +5888,15 @@
       $(document).one(
         "mousedown.jstree touchstart.jstree dnd_start.vakata",
         function(e) {
-          if (h2 && e.target !== h2) {
+          if (
+            h2 &&
+            e.target !== h2 &&
+            jQuery(e.target).parents(".ui-autocomplete").length == 0
+          ) {
+            console.log("event target", e.target);
             $(h2).blur();
           }
+          return true;
         }
       );
       this.trigger("edit_start", { item: obj, $editInput: h2 });
