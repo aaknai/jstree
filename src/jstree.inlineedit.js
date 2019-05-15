@@ -55,16 +55,19 @@
           "model.jstree",
           $.proxy(function(evt, data) {
             console.log("model.jstree", data, evt);
-            if (!data.nodes[0]) return;
-            var obj = this.get_node(data.nodes[0]);
-            if (!obj || obj.id.indexOf("_add_") === 0) return;
-            var add_btn = this.get_node("_add_" + obj.id);
-            if (!add_btn) {
-              this.create_node(
-                obj,
-                { text: "Add child", id: "_add_" + obj.id, type: "add_btn" },
-                "last"
-              );
+            if (!data.nodes) return;
+            for (var i = 0; i < data.nodes.length; i++) {
+              var obj = this.get_node(data.nodes[i]);
+              if (!obj || obj.id.indexOf("_add_") === 0) return;
+              var add_btn = this.get_node("_add_" + obj.id);
+              if (!add_btn) {
+                this.create_node(
+                  obj,
+                  { text: "Add child", id: "_add_" + obj.id, type: "add_btn" },
+                  "last"
+                );
+                console.log("created node _add_" + obj.id);
+              }
             }
           }, this)
         )
@@ -88,6 +91,12 @@
                 }
               );
             }
+          }, this)
+        )
+        .on(
+          "edit_start.jstree",
+          $.proxy(function(evt, data) {
+            console.log("edit_start", data);
           }, this)
         );
     };
